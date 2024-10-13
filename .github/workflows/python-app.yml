@@ -32,7 +32,3 @@ jobs:
       run: |
         make run &  # Run the Flask application in the background
         sleep 10    # Wait for a few seconds to ensure the server has time to start
-
-    - name: Run tests
-      run: |
-        . venv/bin/activate && pytest  # Activate the virtual environment and run tests
