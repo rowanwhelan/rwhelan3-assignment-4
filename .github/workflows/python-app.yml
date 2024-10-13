@@ -1,0 +1,38 @@
+# This workflow installs Python dependencies, runs the application, and tests it using Make commands
+
+name: Python Application
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.10"
+
+    - name: Install dependencies with pip
+      run: |
+        sudo apt-get update && sudo apt-get install -y make  # Install make
+        make install  # Run your install command to set up the virtual environment and install dependencies
+
+    - name: Run the application and wait
+      run: |
+        make run &  # Run the Flask application in the background
+        sleep 10    # Wait for a few seconds to ensure the server has time to start
+
+    - name: Run tests
+      run: |
+        . venv/bin/activate && pytest  # Activate the virtual environment and run tests
