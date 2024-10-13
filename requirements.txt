@@ -2,3 +2,5 @@ Flask
 scikit-learn
 nltk
 numpy
+matplotlib
+io
